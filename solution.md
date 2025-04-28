@@ -1,7 +1,7 @@
 ## My solution to the openproviders assesment
 
 1. Dockerfile: Multi-stage build and run this application
-  - ```docker build -t sbank-api```
+  - ```docker build -t sbank-api .```
 3. docker-compose.yml: builds app from Dockerfile and setup postgres container in brigde
   - ```docker-compose up -d```
 4. .github/workflows/main.yml: GitHub Actions workflow to unit test app and then build image and push to dockerhub. Setup DOCKERHUB_USERNAME and DOCKERHUB_TOKEN in repo secrets.
