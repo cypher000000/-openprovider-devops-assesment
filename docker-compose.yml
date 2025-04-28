@@ -1,0 +1,42 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      -  BANK_POSTGRES_HOST=simplebank_pg:5432
+    depends_on:
+      simplebank_pg:
+        condition: service_healthy
+    command: ["./simplebank"]
+    networks:
+      - bank-network
+
+  simplebank_pg:
+    image: postgres:12-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_USER=test
+      - POSTGRES_DB=bdb
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "test", "-d", "bdb", "-h", "simplebank_pg"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
+    networks:
+      - bank-network
+      
+volumes:
+  db_data:
+  
+networks:
+  bank-network:
+    driver: bridge
