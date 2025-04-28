@@ -1,0 +1,27 @@
+replicaCount: 5
+
+image:
+  repository: cypher00000/simple-bank-api
+  pullPolicy: IfNotPresent
+  tag: "cefba5a"
+
+nameOverride: ""
+fullnameOverride: ""
+
+sbankPostgresHost: postgres:5432
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector:
+  role: api
