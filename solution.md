@@ -1,4 +1,4 @@
-## My solution to the openproviders assesment
+## My solution to the openprovider's tasks
 
 1. Dockerfile: Multi-stage build and run this application
   - ```docker build -t sbank-api .```
